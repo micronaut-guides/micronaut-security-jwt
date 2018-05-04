@@ -9,4 +9,4 @@ include::{sourceDir}/src/main/java/demo/controllers/HomeController.java[]
 <1> Annotate with `io.micronaut.security.Secured` to configure security access. Use `isAuthenticated()` expression to enable access only to authenticated users.
 <2> Annotate with `io.micronaut.http.annotation.Controller` to designate a class as a Micronaut's controller.
 <3> You can specify the HTTP verb for which a controller's action responds to. To respond to a GET request, use `io.micronaut.http.annotation.Get`
-<4> If a user is authenticated, Micronaut binds him if the parameter type is `java.security.Principal`.
+<4> If the parameter type is `java.security.Principal`, Micronaut binds the authenticated user.

@@ -1,0 +1,11 @@
+Also, a test to verify you are able to refresh his access token.
+
+[source,groovy]
+.src/test/groovy/demo/OauthAccessTokenSpec.groovy
+----
+include::{sourceDir}/src/test/groovy/demo/OauthAccessTokenSpec.groovy[]
+}
+----
+
+<1> Do a POST to `/oauth/access_token` with the refresh token in the JSON payload to get a new access token
+<2> A different access token is retrieved.

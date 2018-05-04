@@ -18,38 +18,22 @@ include::{sourceDir}/build.gradle[tag=spock]
 }
 ----
 
+Create a test to verify a user is able to login and access a secured endpoint.
+
 [source,groovy]
-.src/test/groovy/demo/BasicSpec.groovy
+.src/test/groovy/demo/JwtAuthenticationSpec.groovy
 ----
-include::{sourceDir}/src/test/groovy/demo/BasicSpec.groovy[]
+include::{sourceDir}/src/test/groovy/demo/JwtAuthenticationSpec.groovy[]
 }
 ----
 
 <1> The AutoCleanup extension makes sure the close() method of an object (e.g. EmbeddedServer) is called each time a feature method is finished
-<2> Run the application from a unit test.
-<3> Register a `RxClient bean in the application context and pointed to the embedded server URL.
+<2> To run the application from a unit test you can use the http://docs.micronaut.io/api/io/micronaut/runtime/server/EmbeddedServer.html[EmbeddedServer] interface
+<3> Register a `RxClient bean in the application context and point it to the embedded server URL. The EmbeddedServer interface provides the URL of the server under test which runs on a random port.
+<4> Once you turn on security, every endpoint is secured by default.
+<5> To login, do a POST request to `/login` with your credentials as a JSON payload in the body of the request.
+<6> Micronaut makes it easy to parse JSON into Java objects.
+<7> Micronaut supports https://tools.ietf.org/html/rfc6750[RFC 6750 Bearer Token] specification out-of-the-box. We supply the JWT token in the `Authorization` HTTP Header.
+<8> Use .body() to retrieve the parsed payload.
 
-    def "verify http basic auth works"() {
-        when: 'Accessing a secured URL without authenticating'
-        client.toBlocking().exchange(HttpRequest.GET('/', )) // <6>
 
-        then: 'returns unauthorized'
-        HttpClientResponseException e = thrown(HttpClientResponseException)  // <7>
-        e.status == HttpStatus.UNAUTHORIZED
-
-        when: 'A secured URL, is accessed with Basic Auth'
-        HttpRequest request = HttpRequest.GET('/', )
-                .basicAuth("sherlock", "password") // <8>
-        HttpResponse<String> rsp = client.toBlocking().exchange(request, String) // <9>
-
-        then: 'the endpoint can be accessed'
-        rsp.status == HttpStatus.OK
-        rsp.body() == 'sherlock' // <10>
-
-Create a tests which verifies the user authentication flow via Basic Auth.
-
-[source,groovy]
-.src/test/groovy/demo/SessionAuthenticationSpec.groovy
-----
-include::{sourceDir}/src/test/groovy/demo/SessionAuthenticationSpec.groovy[]
-----

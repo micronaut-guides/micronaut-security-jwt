@@ -10,6 +10,7 @@ writingTheApp:
   controller: Controllers
 tests:
   title: Tests
+  oauth: Token Refresh
 testingTheApp:
   title: Testing the Application
 runningTheApp:

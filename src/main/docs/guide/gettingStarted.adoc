@@ -1,4 +1,5 @@
-https://tools.ietf.org/html/rfc7617[RFC7617] defines the "Basic" Hypertext Transfer Protocol (HTTP) authentication scheme, which transmits credentials as user-id/password pairs, encoded using Base64.
+Micronaut ships with security capabilities based on https://jwt.io/[Json Web Token (JWT)]. JWT is an https://tools.ietf.org/html/rfc7519[IETF standard] which defines a secure way to encapsulate arbitrary data that can be sent over unsecure URL’s.
 
-In this guide you are going to create a Micronaut app and secure it with HTTP Basic Auth.
+
+In this guide you are going to create a Micronaut app and secure it with JWT.
 
