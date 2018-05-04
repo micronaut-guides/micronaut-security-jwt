@@ -1,0 +1,12 @@
+Add Micronaut's security dependency to your build file.
+
+[source,groovy]
+.build.gradle
+----
+dependencies {
+...
+..
+.
+include::{sourceDir}/build.gradle[tag=securitydependency]
+}
+----

@@ -1,0 +1,55 @@
+NOTE: Micronaut's is test framework agnostic. You can use https://junit.org[JUnit] or http://spockframework.org[Spock Framework].
+
+In this Guide, we test the app with http://spockframework.org[Spock Framework].
+
+We need to modify `build.gradle` to install spock.
+
+Replace `apply plugin: 'java'` with `apply plugin: 'groovy'` and add
+the necessary dependencies:
+
+[source,groovy]
+.build.gradle
+----
+dependencies {
+...
+..
+.
+include::{sourceDir}/build.gradle[tag=spock]
+}
+----
+
+[source,groovy]
+.src/test/groovy/demo/BasicSpec.groovy
+----
+include::{sourceDir}/src/test/groovy/demo/BasicSpec.groovy[]
+}
+----
+
+<1> The AutoCleanup extension makes sure the close() method of an object (e.g. EmbeddedServer) is called each time a feature method is finished
+<2> Run the application from a unit test.
+<3> Register a `RxClient bean in the application context and pointed to the embedded server URL.
+
+    def "verify http basic auth works"() {
+        when: 'Accessing a secured URL without authenticating'
+        client.toBlocking().exchange(HttpRequest.GET('/', )) // <6>
+
+        then: 'returns unauthorized'
+        HttpClientResponseException e = thrown(HttpClientResponseException)  // <7>
+        e.status == HttpStatus.UNAUTHORIZED
+
+        when: 'A secured URL, is accessed with Basic Auth'
+        HttpRequest request = HttpRequest.GET('/', )
+                .basicAuth("sherlock", "password") // <8>
+        HttpResponse<String> rsp = client.toBlocking().exchange(request, String) // <9>
+
+        then: 'the endpoint can be accessed'
+        rsp.status == HttpStatus.OK
+        rsp.body() == 'sherlock' // <10>
+
+Create a tests which verifies the user authentication flow via Basic Auth.
+
+[source,groovy]
+.src/test/groovy/demo/SessionAuthenticationSpec.groovy
+----
+include::{sourceDir}/src/test/groovy/demo/SessionAuthenticationSpec.groovy[]
+----

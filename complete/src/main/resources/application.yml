@@ -1,0 +1,12 @@
+micronaut:
+  security:
+    enabled: true # <1>
+    endpoints:
+      login: true # <2>
+      refresh: true # <3>
+    token:
+      jwt:
+        enabled: true # <5>
+        generator:
+          signature:
+            secret: qrD6h8K6S9503Q06Y6Rfk21TErImPYqa # <7>

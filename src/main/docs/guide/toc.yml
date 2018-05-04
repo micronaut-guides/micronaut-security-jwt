@@ -1,0 +1,16 @@
+gettingStarted: 
+  title: Getting Started
+  requirements: What you will need
+  howto: How to complete the guide
+writingTheApp:
+  title: Writing the Application
+  dependency: Security Dependency
+  configuration: Configuration
+  authenticationProvider: Authentication Provider
+  controller: Controllers
+tests:
+  title: Tests
+testingTheApp:
+  title: Testing the Application
+runningTheApp:
+  title: Running the Application

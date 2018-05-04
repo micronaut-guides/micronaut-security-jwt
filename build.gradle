@@ -1,0 +1,10 @@
+plugins {
+    id 'org.asciidoctor.convert' version '1.5.3'
+}
+
+asciidoctorj {
+    version = '1.5.4'
+}
+
+apply from:"/Users/sdelamo/Developer/micronaut-projects/micronaut-guides/gradle/guide-build.gradle"
+
