@@ -1,5 +1,8 @@
 package demo
 
+import com.nimbusds.jwt.JWT
+import com.nimbusds.jwt.JWTParser
+import com.nimbusds.jwt.SignedJWT
 import io.micronaut.context.ApplicationContext
 import io.micronaut.http.HttpHeaders
 import io.micronaut.http.HttpResponse
@@ -40,6 +43,10 @@ class JwtAuthenticationSpec extends Specification {
         then: 'the endpoint can be accessed'
         rsp.status == HttpStatus.OK
         rsp.body().username == 'sherlock'
+        rsp.body().accessToken
+        JWTParser.parse(rsp.body().accessToken) instanceof SignedJWT
+        rsp.body().refreshToken
+        JWTParser.parse(rsp.body().refreshToken) instanceof SignedJWT
 
         when:
         String accessToken = rsp.body().accessToken

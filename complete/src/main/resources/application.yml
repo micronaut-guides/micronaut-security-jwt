@@ -10,5 +10,6 @@ micronaut:
       jwt:
         enabled: true # <4>
         signatures:
-          generator: # <5>
-            secret: qrD6h8K6S9503Q06Y6Rfk21TErImPYqa # <7>
+          secret:
+            generator: # <5>
+              secret: "${JWT_GENERATOR_SIGNATURE_SECRET:pleaseChangeThisSecretForANewOne}" # <6>
