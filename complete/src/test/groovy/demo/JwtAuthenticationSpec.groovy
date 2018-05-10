@@ -27,7 +27,7 @@ class JwtAuthenticationSpec extends Specification {
     @AutoCleanup
     RxHttpClient client = embeddedServer.applicationContext.createBean(RxHttpClient, embeddedServer.getURL()) // <3>
 
-    def "verify JWT authentication works"() {
+    def "Verify JWT authentication works"() {
         when: 'Accessing a secured URL without authenticating'
         client.toBlocking().exchange(HttpRequest.GET('/', )) // <4>
 
@@ -35,7 +35,7 @@ class JwtAuthenticationSpec extends Specification {
         HttpClientResponseException e = thrown(HttpClientResponseException)
         e.status == HttpStatus.UNAUTHORIZED
 
-        when: 'login endpoint is called with valid credentials'
+        when: 'Login endpoint is called with valid credentials'
         UsernamePasswordCredentials creds = new UsernamePasswordCredentials("sherlock", "password")
         HttpRequest request = HttpRequest.POST('/login', creds) // <5>
         HttpResponse<BearerAccessRefreshToken> rsp = client.toBlocking().exchange(request, BearerAccessRefreshToken) // <6>
