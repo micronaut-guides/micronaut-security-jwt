@@ -26,7 +26,7 @@ class OauthAccessTokenSpec extends Specification {
     @AutoCleanup
     RxHttpClient client = embeddedServer.applicationContext.createBean(RxHttpClient, embeddedServer.getURL())
 
-    def "verify JWT access token refresh works"() {
+    def "Verify JWT access token refresh works"() {
         when: 'login endpoint is called with valid credentials'
         UsernamePasswordCredentials creds = new UsernamePasswordCredentials("sherlock", "password")
         HttpRequest request = HttpRequest.POST('/login', creds)

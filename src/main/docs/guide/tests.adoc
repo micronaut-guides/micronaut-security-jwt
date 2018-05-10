@@ -14,6 +14,7 @@ dependencies {
 ...
 ..
 .
+include::{sourceDir}/build.gradle[tag=httpClient]
 include::{sourceDir}/build.gradle[tag=spock]
 }
 ----

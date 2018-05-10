@@ -1,4 +1,4 @@
-Also, a test to verify you are able to refresh his access token.
+Create a new test to verify that token refreshing works as expected.
 
 [source,groovy]
 .src/test/groovy/demo/OauthAccessTokenSpec.groovy
@@ -7,5 +7,5 @@ include::{sourceDir}/src/test/groovy/demo/OauthAccessTokenSpec.groovy[]
 }
 ----
 
-<1> Do a POST to `/oauth/access_token` with the refresh token in the JSON payload to get a new access token
+<1> Make a POST request to `/oauth/access_token` with the refresh token in the JSON payload to get a new access token
 <2> A different access token is retrieved.
