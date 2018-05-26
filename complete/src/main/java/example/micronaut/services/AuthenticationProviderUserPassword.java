@@ -1,4 +1,4 @@
-package demo.services;
+package example.micronaut.services;
 
 import io.micronaut.security.authentication.AuthenticationFailed;
 import io.micronaut.security.authentication.AuthenticationProvider;

@@ -3,3 +3,7 @@ Micronaut ships with security capabilities based on https://jwt.io/[Json Web Tok
 
 In this guide you are going to create a Micronaut app and secure it with JWT.
 
+The following sequence illustrates the authentication flow:
+
+image::jwt-bearer-token.svg[]
+

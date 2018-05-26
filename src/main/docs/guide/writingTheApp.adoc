@@ -1,1 +1,3 @@
-The `initial` project contains a Micronaut's Java service, which was created with the Micronaut CLI command: `mn create-service demo`.
+include::{commondir}/common-create-app-java.adoc[]
+
+include::{commondir}/common-annotationprocessors.adoc[]

@@ -9,19 +9,5 @@ include::{sourceDir}/src/main/resources/application.yml[]
 <2> Expose `/login` endpoint
 <3> Expose `/oauth/access_token` endpoint as defined by https://tools.ietf.org/html/rfc6749#section-6[section 6 of the OAuth 2.0 spec] - Refreshing an Access Token.
 <4> Enable JWT based authentication
-<5> Create a http://docs.micronaut.io/api/io/micronaut/security/token/jwt/signature/secret/SecretSignatureConfiguration.html[SecretSignatureConfiguration] named `generator` which is used to sign the JWT claims.
+<5> You can create a http://docs.micronaut.io/api/io/micronaut/security/token/jwt/signature/secret/SecretSignatureConfiguration.html[SecretSignatureConfiguration] named `generator` via configuration as illustrated above. The `generator` signature is used to sign the issued JWT claims.
 <6> Change this by your own secret and keep it safe (do not store this in your VCS)
-
-
-Micronaut supports configuration files in multiple formats, including *.properties, *.groovy or *.yml files. To use Yaml, add the following dependency to `build.gradle`.
-
-[source,groovy]
-.build.gradle
-----
-dependencies {
-...
-..
-.
-include::{sourceDir}/build.gradle[tag=yaml]
-}
-----

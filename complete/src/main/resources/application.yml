@@ -12,4 +12,4 @@ micronaut:
         signatures:
           secret:
             generator: # <5>
-              secret: "${JWT_GENERATOR_SIGNATURE_SECRET:pleaseChangeThisSecretForANewOne}" # <6>
+              secret: pleaseChangeThisSecretForANewOne # <6>

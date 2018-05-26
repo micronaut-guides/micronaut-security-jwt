@@ -1,7 +1,7 @@
 gettingStarted: 
   title: Getting Started
   requirements: What you will need
-  howto: How to complete the guide
+  solution: Solution
 writingTheApp:
   title: Writing the Application
   dependency: Security Dependency

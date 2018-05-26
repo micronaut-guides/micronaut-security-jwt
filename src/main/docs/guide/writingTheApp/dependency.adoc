@@ -1,4 +1,4 @@
-Add Micronaut's security dependency to your build file.
+Add Micronaut's `security-jwt` dependency to your build file.
 
 [source,groovy]
 .build.gradle

@@ -1,23 +1,4 @@
-NOTE: Micronaut's is test framework agnostic. You can use https://junit.org[JUnit] or http://spockframework.org[Spock Framework].
-
-In this Guide, we test the app with http://spockframework.org[Spock Framework].
-
-We need to modify `build.gradle` to install spock.
-
-Replace `apply plugin: 'java'` with `apply plugin: 'groovy'` and add
-the necessary dependencies:
-
-[source,groovy]
-.build.gradle
-----
-dependencies {
-...
-..
-.
-include::{sourceDir}/build.gradle[tag=httpClient]
-include::{sourceDir}/build.gradle[tag=spock]
-}
-----
+include::{commondir}/common-spockinjavaapp.adoc[]
 
 Create a test to verify a user is able to login and access a secured endpoint.
 
@@ -28,9 +9,9 @@ include::{sourceDir}/src/test/groovy/demo/JwtAuthenticationSpec.groovy[]
 }
 ----
 
-<1> The AutoCleanup extension makes sure the close() method of an object (e.g. EmbeddedServer) is called each time a feature method is finished
+<1> The AutoCleanup extension makes sure the close() method of an object (e.g. `EmbeddedServer`) is called each time a feature method is finished
 <2> To run the application from a unit test you can use the http://docs.micronaut.io/api/io/micronaut/runtime/server/EmbeddedServer.html[EmbeddedServer] interface
-<3> Register a `RxClient bean in the application context and point it to the embedded server URL. The EmbeddedServer interface provides the URL of the server under test which runs on a random port.
+<3> Register a `RxClient` bean in the application context and point it to the embedded server URL. The `EmbeddedServer` interface provides the URL of the server under test which runs on a random port.
 <4> Once you turn on security, every endpoint is secured by default.
 <5> To login, do a POST request to `/login` with your credentials as a JSON payload in the body of the request.
 <6> Micronaut makes it easy to parse JSON into Java objects.
