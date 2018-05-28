@@ -1,6 +1,6 @@
 Create the a new `application.yml` configuration file:
 
-[source,groovy]
+[source,yaml]
 .src/main/resources/application.yml
 ----
 include::{sourceDir}/src/main/resources/application.yml[]

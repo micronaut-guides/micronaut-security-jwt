@@ -1,6 +1,6 @@
 To keep this guide simple, create a naive `AuthenticationProvider` to simulate user's authentication.
 
-[source,groovy]
+[source,java]
 .src/main/java/example/micronaut/services/AuthenticationProviderUserPassword.java
 ----
 include::{sourceDir}/src/main/java/example/micronaut/services/AuthenticationProviderUserPassword.java[]

@@ -1,6 +1,6 @@
 Create a file named `HomeController` which resolves the base URL `/`:
 
-[source,groovy]
+[source,java]
 .src/main/java/example/micronaut/controllers/HomeController.java
 ----
 include::{sourceDir}/src/main/java/example/micronaut/controllers/HomeController.java[]
