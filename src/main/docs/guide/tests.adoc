@@ -6,10 +6,9 @@ Create a test to verify a user is able to login and access a secured endpoint.
 .src/test/groovy/demo/JwtAuthenticationSpec.groovy
 ----
 include::{sourceDir}/src/test/groovy/demo/JwtAuthenticationSpec.groovy[]
-}
 ----
 
-<1> The AutoCleanup extension makes sure the close() method of an object (e.g. `EmbeddedServer`) is called each time a feature method is finished
+<1> The AutoCleanup extension makes sure the `close()` method of an object (e.g. `EmbeddedServer`) is called each time a feature method is finished
 <2> To run the application from a unit test you can use the http://docs.micronaut.io/api/io/micronaut/runtime/server/EmbeddedServer.html[EmbeddedServer] interface
 <3> Register a `RxClient` bean in the application context and point it to the embedded server URL. The `EmbeddedServer` interface provides the URL of the server under test which runs on a random port.
 <4> Once you turn on security, every endpoint is secured by default.
