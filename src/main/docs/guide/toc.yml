@@ -11,6 +11,7 @@ writingTheApp:
 tests:
   title: Tests
   oauth: Token Refresh
+  jwt: Use Micronaut's HTTP Client and JWT
 testingTheApp:
   title: Testing the Application
 runningTheApp:

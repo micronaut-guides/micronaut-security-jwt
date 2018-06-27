@@ -1,18 +1,26 @@
-include::{commondir}/common-spockinjavaapp.adoc[]
+If you want to access a secured endpoint, you can also use Micronaut's HTTP Client and supply the JWT token in the Authorization header.
 
-Create a test to verify a user is able to login and access a secured endpoint.
+First create a `@Client` with a method `home` which accepts an `Authorization` HTTP Header.
+
+[source,java]
+.src/test/java/example/micronaut/AppClient.java
+----
+include::{sourceDir}/src/test/java/example/micronaut/AppClient.java[]
+----
+
+Create a test which uses the previous `@Client`
 
 [source,groovy]
-.src/test/groovy/example/micronaut/JwtAuthenticationSpec.groovy
+.src/test/groovy/example/micronaut/DeclarativeHttpClientWithJwtSpec.groovy
 ----
-include::{sourceDir}/src/test/groovy/example/micronaut/JwtAuthenticationSpec.groovy[]
+include::{sourceDir}/src/test/groovy/example/micronaut/DeclarativeHttpClientWithJwtSpec.groovy[]
 ----
 
 <1> The AutoCleanup extension makes sure the `close()` method of an object (e.g. `EmbeddedServer`) is called each time a feature method is finished
 <2> To run the application from a unit test you can use the http://docs.micronaut.io/api/io/micronaut/runtime/server/EmbeddedServer.html[EmbeddedServer] interface
 <3> Register a `RxClient` bean in the application context and point it to the embedded server URL. The `EmbeddedServer` interface provides the URL of the server under test which runs on a random port.
-<4> Once you turn on security, every endpoint is secured by default.
+<4> Retrieve `AppClient` bean from application context.
 <5> To login, do a POST request to `/login` with your credentials as a JSON payload in the body of the request.
 <6> Micronaut makes it easy to parse JSON into Java objects.
-<7> Micronaut supports https://tools.ietf.org/html/rfc6750[RFC 6750 Bearer Token] specification out-of-the-box. We supply the JWT token in the `Authorization` HTTP Header.
+<7> Supply the JWT to the HTTP `Authorization` header value to the `@Client` method.
 <8> Use .body() to retrieve the parsed payload.
