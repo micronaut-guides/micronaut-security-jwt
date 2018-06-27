@@ -1,9 +1,9 @@
 Create a new test to verify that token refreshing works as expected.
 
 [source,groovy]
-.src/test/groovy/demo/OauthAccessTokenSpec.groovy
+.src/test/groovy/example/micronaut/OauthAccessTokenSpec.groovy
 ----
-include::{sourceDir}/src/test/groovy/demo/OauthAccessTokenSpec.groovy[]
+include::{sourceDir}/src/test/groovy/example/micronaut/OauthAccessTokenSpec.groovy[]
 }
 ----
 

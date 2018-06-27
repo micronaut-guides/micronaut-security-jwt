@@ -8,13 +8,13 @@ buildscript {
 }
 
 version "0.1"
-group "demo"
+group "example.micronaut"
 
 apply plugin:"io.spring.dependency-management"
 apply plugin:"application"
 apply plugin:"java"
 
-mainClassName = "demo.Application"
+mainClassName = "example.micronaut.Application"
 
 repositories {
     mavenLocal()

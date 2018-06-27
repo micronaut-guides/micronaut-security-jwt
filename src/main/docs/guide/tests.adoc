@@ -3,9 +3,9 @@ include::{commondir}/common-spockinjavaapp.adoc[]
 Create a test to verify a user is able to login and access a secured endpoint.
 
 [source,groovy]
-.src/test/groovy/demo/JwtAuthenticationSpec.groovy
+.src/test/groovy/example/micronaut/JwtAuthenticationSpec.groovy
 ----
-include::{sourceDir}/src/test/groovy/demo/JwtAuthenticationSpec.groovy[]
+include::{sourceDir}/src/test/groovy/example/micronaut/JwtAuthenticationSpec.groovy[]
 ----
 
 <1> The AutoCleanup extension makes sure the `close()` method of an object (e.g. `EmbeddedServer`) is called each time a feature method is finished

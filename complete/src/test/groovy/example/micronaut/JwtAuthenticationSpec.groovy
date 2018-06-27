@@ -1,6 +1,5 @@
-package demo
+package example.micronaut
 
-import com.nimbusds.jwt.JWT
 import com.nimbusds.jwt.JWTParser
 import com.nimbusds.jwt.SignedJWT
 import io.micronaut.context.ApplicationContext
