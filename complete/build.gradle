@@ -31,23 +31,23 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom "io.micronaut:bom:$micronautVersion"
+        mavenBom "io.micronaut:micronaut-bom:$micronautVersion"
     }
 }
 
 dependencies {
-    annotationProcessor "io.micronaut:inject-java"
-    compile "io.micronaut:http-server-netty"
-    compile "io.micronaut:inject"
-    compile "io.micronaut:runtime"
-    compile "io.micronaut:http-client"
-    compileOnly "io.micronaut:inject-java"
+    annotationProcessor "io.micronaut:micronaut-inject-java"
+    compile "io.micronaut:micronaut-http-server-netty"
+    compile "io.micronaut:micronaut-inject"
+    compile "io.micronaut:micronaut-runtime"
+    compile "io.micronaut:micronaut-http-client"
+    compileOnly "io.micronaut:micronaut-inject-java"
     runtime "ch.qos.logback:logback-classic:1.2.3"
     testCompile "junit:junit:4.12"
-    testCompile "io.micronaut:inject-java"
+    testCompile "io.micronaut:micronaut-inject-java"
 
     //tag::securitydependency[]
-    compile "io.micronaut:security-jwt"
+    compile "io.micronaut:micronaut-security-jwt"
     //end::securitydependency[]
 
     //tag::spock[]

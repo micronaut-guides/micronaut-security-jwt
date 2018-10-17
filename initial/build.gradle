@@ -24,13 +24,13 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom "io.micronaut:bom:$micronautVersion"
+        mavenBom "io.micronaut:micronaut-bom:$micronautVersion"
     }
 }
 
 dependencies {
-    compile "io.micronaut:http-server-netty"
-    compile "io.micronaut:inject"
-    compileOnly "io.micronaut:inject-java"
+    compile "io.micronaut:micronaut-http-server-netty"
+    compile "io.micronaut:micronaut-inject"
+    compileOnly "io.micronaut:micronaut-inject-java"
     runtime "ch.qos.logback:logback-classic:1.2.3"
 }
