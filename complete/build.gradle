@@ -2,9 +2,7 @@ plugins {
     id "net.ltgt.apt-eclipse" version "0.21"
     id "com.github.johnrengelman.shadow" version "5.0.0"
     id "application"
-    //tag::applyPluginGroovy[]
     id "groovy"
-    //end::applyPluginGroovy[]
 }
 
 version "0.1"
