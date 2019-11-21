@@ -8,9 +8,9 @@ Create a test to verify a user is able to login and access a secured endpoint.
 include::{sourceDir}/src/test/groovy/example/micronaut/JwtAuthenticationSpec.groovy[]
 ----
 
-<1> The AutoCleanup extension makes sure the `close()` method of an object (e.g. `EmbeddedServer`) is called each time a feature method is finished
-<2> To run the application from a unit test you can use the http://docs.micronaut.io/api/io/micronaut/runtime/server/EmbeddedServer.html[EmbeddedServer] interface
-<3> Register a `RxClient` bean in the application context and point it to the embedded server URL. The `EmbeddedServer` interface provides the URL of the server under test which runs on a random port.
+<1> Annotate the class with `@MicronautTest` to let Micronaut starts the embedded server and inject the beans. More info: https://micronaut-projects.github.io/micronaut-test/latest/guide/index.html[https://micronaut-projects.github.io/micronaut-test/latest/guide/index.html].
+<2> Inject the `EmbeddedServer` interfact.
+<3> Inject the `HttpClient` bean in the application context.
 <4> Once you turn on security, every endpoint is secured by default.
 <5> To login, do a POST request to `/login` with your credentials as a JSON payload in the body of the request.
 <6> Micronaut makes it easy to parse JSON into Java objects.

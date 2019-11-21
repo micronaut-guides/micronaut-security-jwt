@@ -16,11 +16,8 @@ Create a test which uses the previous `@Client`
 include::{sourceDir}/src/test/groovy/example/micronaut/DeclarativeHttpClientWithJwtSpec.groovy[]
 ----
 
-<1> The AutoCleanup extension makes sure the `close()` method of an object (e.g. `EmbeddedServer`) is called each time a feature method is finished
-<2> To run the application from a unit test you can use the http://docs.micronaut.io/api/io/micronaut/runtime/server/EmbeddedServer.html[EmbeddedServer] interface
-<3> Register a `RxClient` bean in the application context and point it to the embedded server URL. The `EmbeddedServer` interface provides the URL of the server under test which runs on a random port.
-<4> Retrieve `AppClient` bean from application context.
-<5> To login, do a POST request to `/login` with your credentials as a JSON payload in the body of the request.
-<6> Micronaut makes it easy to parse JSON into Java objects.
-<7> Supply the JWT to the HTTP `Authorization` header value to the `@Client` method.
-<8> Use .body() to retrieve the parsed payload.
+<1> Inject `AppClient` bean from application context.
+<2> To login, do a POST request to `/login` with your credentials as a JSON payload in the body of the request.
+<3> Micronaut makes it easy to parse JSON into Java objects.
+<4> Supply the JWT to the HTTP `Authorization` header value to the `@Client` method.
+<5> Use .body() to retrieve the parsed payload.
