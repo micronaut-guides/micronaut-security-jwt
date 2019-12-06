@@ -1,0 +1,12 @@
+include::{commondir}/common-graal-install.adoc[]
+
+include::{commondir}/common-graal-nativeimage.adoc[]
+
+You can execute the login endpoint exposed by the native image:
+
+[source, bash]
+----
+curl -X "POST" "http://localhost:8080/login" -H 'Content-Type: application/json; charset=utf-8' -d $'{"username": "sherlock","password": "password"}'
+
+{"username":"sherlock","access_token":"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGVybG9jayIsIm5iZiI6MTU3NTY0NTcwNCwicm9sZXMiOltdLCJpc3MiOiJtaWNyb25hdXQiLCJleHAiOjE1NzU2NDkzMDQsImlhdCI6MTU3NTY0NTcwNH0.4muCnr7ztVp1DisyGWNKkV2QC9qtIt_WyS6ubbAbt_c","refresh_token":"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGVybG9jayIsIm5iZiI6MTU3NTY0NTcwNCwicm9sZXMiOltdLCJpc3MiOiJtaWNyb25hdXQiLCJpYXQiOjE1NzU2NDU3MDR9._MnTiFN1ifKJEqXE6B1--srPkOeNW5cDNtMymN3qG48","token_type":"Bearer","expires_in":3600}
+----
