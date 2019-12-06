@@ -11,7 +11,7 @@ import java.security.Principal;
 public class HomeController {
 
     @Get("/") // <3>
-    String index(Principal principal) {  // <4>
+    public String index(Principal principal) {  // <4>
         return principal.getName();
     }
 }
