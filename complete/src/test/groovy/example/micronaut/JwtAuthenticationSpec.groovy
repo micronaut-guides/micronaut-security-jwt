@@ -50,7 +50,7 @@ class JwtAuthenticationSpec extends Specification {
 
         when:
         String accessToken = rsp.body().accessToken
-        HttpRequest requestWithAuthorization = HttpRequest.GET('/' ).header(HttpHeaders.AUTHORIZATION, "Bearer $accessToken") // <7>
+        HttpRequest requestWithAuthorization = HttpRequest.GET('/' ).bearerAuth(accessToken) // <7>
         HttpResponse<String> response = client.toBlocking().exchange(requestWithAuthorization, String)
 
         then:
