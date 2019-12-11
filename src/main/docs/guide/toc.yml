@@ -21,3 +21,5 @@ graal:
   graalchanges: Micronaut + GraalVM changes
   graalnativeimage: Native Image generation
   graaldocker: Native Image generation with Docker
+help:
+  title: Help with Micronaut  
