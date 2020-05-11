@@ -1,15 +1,13 @@
 micronaut:
   security:
-    enabled: true # <1>
     endpoints:
       login:
-        enabled: true # <2>
+        enabled: true # <1>
       oauth:
-        enabled: true # <3>
+        enabled: true # <2>
     token:
       jwt:
-        enabled: true # <4>
         signatures:
           secret:
-            generator: # <5>
-              secret: pleaseChangeThisSecretForANewOne # <6>
+            generator: # <3>
+              secret: pleaseChangeThisSecretForANewOne # <4>
