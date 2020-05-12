@@ -1,5 +1,7 @@
 package example.micronaut;
 
+import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Consumes;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Header;
 import io.micronaut.http.client.annotation.Client;
@@ -7,6 +9,7 @@ import io.micronaut.http.client.annotation.Client;
 @Client("/")
 public interface AppClient {
 
-    @Get("/")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Get
     String home(@Header String authorization);
 }
