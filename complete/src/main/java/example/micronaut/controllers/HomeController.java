@@ -7,11 +7,11 @@ import io.micronaut.security.rules.SecurityRule;
 
 import java.security.Principal;
 
-@Controller("/")  // <2>
 @Secured(SecurityRule.IS_AUTHENTICATED) // <1>
+@Controller  // <2>
 public class HomeController {
 
-    @Get("/") // <3>
+    @Get // <3>
     public String index(Principal principal) {  // <4>
         return principal.getName();
     }
