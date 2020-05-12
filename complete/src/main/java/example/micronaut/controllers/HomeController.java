@@ -3,11 +3,12 @@ package example.micronaut.controllers;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
 
 import java.security.Principal;
 
-@Secured("isAuthenticated()") // <1>
 @Controller("/")  // <2>
+@Secured(SecurityRule.IS_AUTHENTICATED) // <1>
 public class HomeController {
 
     @Get("/") // <3>
