@@ -1,9 +1,9 @@
 Create a file named `HomeController` which resolves the base URL `/`:
 
 [source,java]
-.src/main/java/example/micronaut/controllers/HomeController.java
+.src/main/java/example/micronaut/HomeController.java
 ----
-include::{sourceDir}/src/main/java/example/micronaut/controllers/HomeController.java[]
+include::{sourceDir}/src/main/java/example/micronaut/HomeController.java[]
 ----
 
 <1> Annotate with `io.micronaut.security.Secured` to configure secured access. The `isAuthenticated()` expression will allow access only to authenticated users.

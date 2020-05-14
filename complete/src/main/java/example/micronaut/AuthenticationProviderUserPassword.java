@@ -1,4 +1,4 @@
-package example.micronaut.services;
+package example.micronaut;
 
 import edu.umd.cs.findbugs.annotations.Nullable;
 import io.micronaut.http.HttpRequest;

@@ -1,9 +1,9 @@
 To keep this guide simple, create a naive `AuthenticationProvider` to simulate user's authentication.
 
 [source,java]
-.src/main/java/example/micronaut/services/AuthenticationProviderUserPassword.java
+.src/main/java/example/micronaut/AuthenticationProviderUserPassword.java
 ----
-include::{sourceDir}/src/main/java/example/micronaut/services/AuthenticationProviderUserPassword.java[]
+include::{sourceDir}/src/main/java/example/micronaut/AuthenticationProviderUserPassword.java[]
 ----
 
 <1> To register a Singleton in Micronaut's application context, annotate your class with `javax.inject.Singleton`
