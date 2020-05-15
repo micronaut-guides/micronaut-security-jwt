@@ -1,12 +1,11 @@
 package example.micronaut
 
+import com.nimbusds.jwt.JWTParser
+import com.nimbusds.jwt.SignedJWT
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
-import io.micronaut.http.client.RxHttpClient
-import io.micronaut.http.client.annotation.Client
 import io.micronaut.http.client.exceptions.HttpClientResponseException
-import io.micronaut.runtime.server.EmbeddedServer
 import io.micronaut.security.authentication.UsernamePasswordCredentials
 import io.micronaut.security.token.jwt.render.BearerAccessRefreshToken
 import io.micronaut.test.annotation.MicronautTest
@@ -18,38 +17,22 @@ import javax.inject.Inject
 class DeclarativeHttpClientWithJwtSpec extends Specification {
 
     @Inject
-    EmbeddedServer embeddedServer
-
-    @Inject
-    @Client("/")
-    RxHttpClient client
-
-    @Inject
     AppClient appClient // <1>
 
     def "Verify JWT authentication works with declarative @Client"() {
-        when: 'Accessing a secured URL without authenticating'
-        client.toBlocking().exchange(HttpRequest.GET('/', ))
-
-        then: 'returns unauthorized'
-        HttpClientResponseException e = thrown(HttpClientResponseException)
-        e.status == HttpStatus.UNAUTHORIZED
-
         when: 'Login endpoint is called with valid credentials'
         UsernamePasswordCredentials creds = new UsernamePasswordCredentials("sherlock", "password")
-        HttpRequest request = HttpRequest.POST('/login', creds) // <2>
-        HttpResponse<BearerAccessRefreshToken> rsp = client.toBlocking().exchange(request, BearerAccessRefreshToken) // <3>
-
-        then: 'the endpoint can be accessed'
-        rsp.status == HttpStatus.OK
-        rsp.body().accessToken
-
-        when:
-        String accessToken = rsp.body().accessToken
-        String authorizationValue = "Bearer $accessToken"
-        String msg = appClient.home(authorizationValue) // <4>
+        BearerAccessRefreshToken loginRsp = appClient.login(creds) // <2>
 
         then:
-        msg == 'sherlock' // <5>
+        loginRsp
+        loginRsp.accessToken
+        JWTParser.parse(loginRsp.accessToken) instanceof SignedJWT
+
+        when:
+        String msg = appClient.home("Bearer ${loginRsp.accessToken}") // <3>
+
+        then:
+        msg == 'sherlock'
     }
 }

@@ -9,10 +9,9 @@ include::{sourceDir}/src/test/groovy/example/micronaut/JwtAuthenticationSpec.gro
 ----
 
 <1> Annotate the class with `@MicronautTest` to let Micronaut starts the embedded server and inject the beans. More info: https://micronaut-projects.github.io/micronaut-test/latest/guide/index.html[https://micronaut-projects.github.io/micronaut-test/latest/guide/index.html].
-<2> Inject the `EmbeddedServer` interfact.
-<3> Inject the `HttpClient` bean in the application context.
-<4> Once you turn on security, every endpoint is secured by default.
-<5> To login, do a POST request to `/login` with your credentials as a JSON payload in the body of the request.
-<6> Micronaut makes it easy to parse JSON into Java objects.
-<7> Micronaut supports https://tools.ietf.org/html/rfc6750[RFC 6750 Bearer Token] specification out-of-the-box. We supply the JWT token in the `Authorization` HTTP Header.
-<8> Use .body() to retrieve the parsed payload.
+<2> Inject the `HttpClient` bean in the application context.
+<3> When you include the security dependencies, security is considered enabled and every endpoint is secured by default.
+<4> To login, do a POST request to `/login` with your credentials as a JSON payload in the body of the request.
+<5> Micronaut makes it easy to bind JSON responses into Java objects.
+<6> Micronaut supports https://tools.ietf.org/html/rfc6750[RFC 6750 Bearer Token] specification out-of-the-box. We supply the JWT token in the `Authorization` HTTP Header.
+<7> Use `.body()` to retrieve the parsed payload.

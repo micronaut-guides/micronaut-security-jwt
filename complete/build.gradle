@@ -9,13 +9,21 @@ version "0.1"
 group "example"
 
 repositories {
-    mavenCentral()
     jcenter()
+    maven { url "https://oss.jfrog.org/oss-snapshot-local" }
 }
 
 configurations {
     // for dependencies that are needed for development only
     developmentOnly
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'io.micronaut:micronaut-security-annotations:2.0.0.BUILD-SNAPSHOT'
+        force 'io.micronaut:micronaut-security:2.0.0.BUILD-SNAPSHOT'
+        force 'io.micronaut:micronaut-security-jwt:2.0.0.BUILD-SNAPSHOT'
+    }
 }
 
 dependencies {
@@ -36,9 +44,17 @@ dependencies {
     implementation "io.micronaut:micronaut-http-client"
 
     //tag::securitydependency[]
-    annotationProcessor "io.micronaut:micronaut-security-annotations:2.0.0.M2"
-    implementation "io.micronaut:micronaut-security-jwt"
+    annotationProcessor "io.micronaut:micronaut-security-annotations:2.0.0.BUILD-SNAPSHOT"
+    implementation "io.micronaut:micronaut-security-jwt:2.0.0.BUILD-SNAPSHOT"
+    implementation "io.micronaut:micronaut-security:2.0.0.BUILD-SNAPSHOT"
     //end::securitydependency[]
+
+    //tag::micronautdata[]
+    annotationProcessor("io.micronaut.data:micronaut-data-processor") // <1>
+    implementation("io.micronaut.data:micronaut-data-jdbc") // <2>
+    runtime("com.h2database:h2") // <3>
+    runtime("io.micronaut.configuration:micronaut-jdbc-hikari") // <4>
+    //end::micronautdata[]
 
     //tag::spock[]
     testImplementation("org.spockframework:spock-core") {

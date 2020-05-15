@@ -3,9 +3,11 @@ Create the a new `application.yml` configuration file:
 [source,yaml]
 .src/main/resources/application.yml
 ----
-include::{sourceDir}/src/main/resources/application.yml[]
+include::{sourceDir}/src/main/resources/application.yml[tag=security]
 ----
 <1> Expose `/login` endpoint.
-<2> Expose `/oauth/access_token` endpoint as defined by https://tools.ietf.org/html/rfc6749#section-6[section 6 of the OAuth 2.0 spec] - Refreshing an Access Token.
-<3> You can create a http://docs.micronaut.io/latest/api/io/micronaut/security/token/jwt/signature/secret/SecretSignatureConfiguration.html[SecretSignatureConfiguration] named `generator` via configuration as illustrated above. The `generator` signature is used to sign the issued JWT claims.
-<4> Change this by your own secret and keep it safe (do not store this in your VCS).
+<2> You can create a http://docs.micronaut.io/latest/api/io/micronaut/security/token/jwt/signature/secret/SecretSignatureConfiguration.html[SecretSignatureConfiguration] named `generator` via configuration as illustrated above. The `generator` signature is used to sign the issued JWT claims.
+<3> Change this by your own secret and keep it safe (do not store this in your VCS).
+
+
+

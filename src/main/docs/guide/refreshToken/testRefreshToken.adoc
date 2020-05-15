@@ -1,0 +1,59 @@
+## Test Refresh Token Validation
+
+Refresh tokens issued by https://micronaut-projects.github.io/micronaut-security/snapshot/api/io/micronaut/security/token/jwt/generator/SignedRefreshTokenGenerator.html[SignedRefreshTokenGenerator], the default implementation of https://micronaut-projects.github.io/micronaut-security/snapshot/api/io/micronaut/security/token/generator/RefreshTokenGenerator.html[RefreshTokenGenerator], are signed.
+
+`SignedRefreshTokenGenerator` implements both https://micronaut-projects.github.io/micronaut-security/snapshot/api/io/micronaut/security/token/generator/RefreshTokenGenerator.html[RefreshTokenGenerator] and  https://micronaut-projects.github.io/micronaut-security/snapshot/api/io/micronaut/security/token/validator/RefreshTokenValidator.html[RefreshTokenValidator].
+
+The bean of type `RefreshTokenValidator` is used by the https://micronaut-projects.github.io/micronaut-security/latest/guide/index.html#refresh[Refresh Controller] to ensure the refresh token supplied is valid.
+
+Create a test for this:
+
+[source,groovy]
+.src/test/groovy/example/micronaut/UnsignedRefreshTokenSpec.groovy
+----
+include::{sourceDir}/src/test/groovy/example/micronaut/UnsignedRefreshTokenSpec.groovy[]
+}
+----
+
+<1> Use an unsigned token
+
+## Test Refresh Token Not Found
+
+Create a test which verifies a that sending a valid refresh token but which was not persisted returns HTTP Status 400.
+
+[source,groovy]
+.src/test/groovy/example/micronaut/RefreshTokenNotFoundSpec.groovy
+----
+include::{sourceDir}/src/test/groovy/example/micronaut/RefreshTokenNotFoundSpec.groovy[]
+}
+----
+
+<1> Supply a signed token which was never saved.
+
+## Test Refresh Token Revocation
+
+Generate a valid refresh token, save it but flag it as revoked. Expect a 400.
+
+[source,groovy]
+.src/test/groovy/example/micronaut/RefreshTokenRevokedSpec.groovy
+----
+include::{sourceDir}/src/test/groovy/example/micronaut/RefreshTokenRevokedSpec.groovy[]
+}
+----
+
+<1> Save the token but flag it as revoked
+
+
+## Test Access Token Refresh
+
+Login, obtain both access token and refresh token, with the refresh token obtain a different access token:
+
+[source,groovy]
+.src/test/groovy/example/micronaut/OauthAccessTokenSpec.groovy
+----
+include::{sourceDir}/src/test/groovy/example/micronaut/OauthAccessTokenSpec.groovy[]
+}
+----
+
+<1> Make a POST request to `/oauth/access_token` with the refresh token in the JSON payload to get a new access token
+<2> A different access token is retrieved.

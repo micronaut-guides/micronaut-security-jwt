@@ -1,13 +1,43 @@
+#tag::security[]
 micronaut:
   security:
     endpoints:
       login:
         enabled: true # <1>
-      oauth:
-        enabled: true # <2>
     token:
       jwt:
         signatures:
           secret:
-            generator: # <3>
-              secret: pleaseChangeThisSecretForANewOne # <4>
+            generator: # <2>
+              secret: pleaseChangeThisSecretForANewOne # <3>
+#end::security[]
+#tag::oauth[]
+---
+micronaut:
+  security:
+    endpoints:
+      oauth:
+        enabled: true # <1>
+#end::oauth[]
+#tag::refresh[]
+---
+micronaut:
+  security:
+    token:
+      jwt:
+        generator:
+          refresh-token:
+            enabled: true # <1>
+            secret: pleaseChangeThisSecretForANewOne # <2>
+#end::refresh[]
+#tag::datasources[]
+---
+datasources:
+  default:
+    url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password: ''
+    schema-generate: CREATE_DROP
+    dialect: H2
+#end::datasources[]

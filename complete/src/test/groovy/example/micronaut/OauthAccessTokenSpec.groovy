@@ -1,50 +1,60 @@
 package example.micronaut
 
+import io.micronaut.context.ApplicationContext
 import io.micronaut.http.HttpRequest
-import io.micronaut.http.HttpResponse
-import io.micronaut.http.HttpStatus
-import io.micronaut.http.client.RxHttpClient
-import io.micronaut.http.client.annotation.Client
+import io.micronaut.http.client.HttpClient
 import io.micronaut.runtime.server.EmbeddedServer
 import io.micronaut.security.authentication.UsernamePasswordCredentials
 import io.micronaut.security.token.jwt.endpoints.TokenRefreshRequest
 import io.micronaut.security.token.jwt.render.AccessRefreshToken
 import io.micronaut.security.token.jwt.render.BearerAccessRefreshToken
-import io.micronaut.test.annotation.MicronautTest
+import spock.lang.AutoCleanup
+import spock.lang.Shared
 import spock.lang.Specification
+import spock.util.concurrent.PollingConditions
 
-import javax.inject.Inject
-
-@MicronautTest
 class OauthAccessTokenSpec extends Specification {
 
-    @Inject
-    EmbeddedServer embeddedServer
+    @AutoCleanup
+    @Shared
+    EmbeddedServer embeddedServer = ApplicationContext.run(EmbeddedServer, [:])
 
-    @Inject
-    @Client("/")
-    RxHttpClient client
+    @Shared
+    HttpClient client = embeddedServer.applicationContext.createBean(HttpClient, embeddedServer.URL)
+
+    @Shared
+    RefreshTokenRepository refreshTokenRepository = embeddedServer.applicationContext.getBean(RefreshTokenRepository)
 
     def "Verify JWT access token refresh works"() {
-        when: 'login endpoint is called with valid credentials'
-        UsernamePasswordCredentials creds = new UsernamePasswordCredentials("sherlock", "password")
-        HttpRequest request = HttpRequest.POST('/login', creds)
-        HttpResponse<BearerAccessRefreshToken> rsp = client.toBlocking().exchange(request, BearerAccessRefreshToken)
+        given:
+        String username = 'sherlock'
 
-        then: 'the endpoint can be accessed'
-        rsp.status == HttpStatus.OK
+        when: 'login endpoint is called with valid credentials'
+        def creds = new UsernamePasswordCredentials(username, "password")
+        HttpRequest request = HttpRequest.POST('/login', creds)
+        BearerAccessRefreshToken rsp = client.toBlocking().retrieve(request, BearerAccessRefreshToken)
+
+        then: 'the refresh token is saved to the database'
+        new PollingConditions().eventually {
+            assert refreshTokenRepository.count() == old(refreshTokenRepository.count()) + 1
+        }
+
+        and: 'response contains an access token token'
+        rsp.accessToken
+
+        and: 'response contains a refresh token'
+        rsp.refreshToken
 
         when:
         sleep(1_000) // sleep for one second to give time for the issued at `iat` Claim to change
-        String refreshToken = rsp.body().refreshToken
-        String accessToken = rsp.body().accessToken
-
-        HttpResponse<AccessRefreshToken> response = client.toBlocking().exchange(HttpRequest.POST('/oauth/access_token',
-                new TokenRefreshRequest("refresh_token", refreshToken)), AccessRefreshToken) // <1>
+        AccessRefreshToken refreshResponse = client.toBlocking().retrieve(HttpRequest.POST('/oauth/access_token',
+                new TokenRefreshRequest(rsp.refreshToken)), AccessRefreshToken) // <1>
 
         then:
-        response.status == HttpStatus.OK
-        response.body().accessToken
-        response.body().accessToken != accessToken // <2>
+        refreshResponse.accessToken
+        refreshResponse.accessToken != rsp.accessToken // <2>
+
+        cleanup:
+        refreshTokenRepository.deleteAll()
     }
 }

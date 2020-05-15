@@ -10,8 +10,12 @@ writingTheApp:
   controller: Controllers
 tests:
   title: Tests
-  oauth: Token Refresh
   jwt: Use Micronaut's HTTP Client and JWT
+refreshToken:
+  title: Issuing a Refresh Token
+  saveRefreshToken: Save Refresh Token
+  refreshController: Refresh Controller
+  testRefreshToken: Test Refresh Token
 testingTheApp:
   title: Testing the Application
 runningTheApp:

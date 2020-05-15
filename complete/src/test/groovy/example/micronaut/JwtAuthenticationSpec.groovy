@@ -2,14 +2,13 @@ package example.micronaut
 
 import com.nimbusds.jwt.JWTParser
 import com.nimbusds.jwt.SignedJWT
-import io.micronaut.http.HttpHeaders
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
+import io.micronaut.http.MediaType
 import io.micronaut.http.client.RxHttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.http.client.exceptions.HttpClientResponseException
-import io.micronaut.runtime.server.EmbeddedServer
 import io.micronaut.security.authentication.UsernamePasswordCredentials
 import io.micronaut.security.token.jwt.render.BearerAccessRefreshToken
 import io.micronaut.test.annotation.MicronautTest
@@ -21,40 +20,46 @@ import javax.inject.Inject
 class JwtAuthenticationSpec extends Specification {
 
     @Inject
-    EmbeddedServer embeddedServer // <2>
-
-    @Inject
     @Client("/")
-    RxHttpClient client // <3>
+    RxHttpClient client // <2>
 
-    def "Verify JWT authentication works"() {
-        when: 'Accessing a secured URL without authenticating'
-        client.toBlocking().exchange(HttpRequest.GET('/', )) // <4>
+    void 'Accessing a secured URL without authenticating returns unauthorized'() {
+        when:
+        client.toBlocking().exchange(HttpRequest.GET('/', )) // <3>
 
-        then: 'returns unauthorized'
-        HttpClientResponseException e = thrown(HttpClientResponseException)
+        then:
+        HttpClientResponseException e = thrown()
         e.status == HttpStatus.UNAUTHORIZED
+    }
 
+    void "upon successful authentication, a Json Web token is issued to the user"() {
         when: 'Login endpoint is called with valid credentials'
         UsernamePasswordCredentials creds = new UsernamePasswordCredentials("sherlock", "password")
-        HttpRequest request = HttpRequest.POST('/login', creds) // <5>
-        HttpResponse<BearerAccessRefreshToken> rsp = client.toBlocking().exchange(request, BearerAccessRefreshToken) // <6>
+        HttpRequest request = HttpRequest.POST('/login', creds) // <4>
+        HttpResponse<BearerAccessRefreshToken> rsp = client.toBlocking().exchange(request, BearerAccessRefreshToken) // <5>
 
         then: 'the endpoint can be accessed'
         rsp.status == HttpStatus.OK
-        rsp.body().username == 'sherlock'
-        rsp.body().accessToken
-        JWTParser.parse(rsp.body().accessToken) instanceof SignedJWT
-        rsp.body().refreshToken
-        JWTParser.parse(rsp.body().refreshToken) instanceof SignedJWT
 
         when:
-        String accessToken = rsp.body().accessToken
-        HttpRequest requestWithAuthorization = HttpRequest.GET('/' ).bearerAuth(accessToken) // <7>
+        BearerAccessRefreshToken bearerAccessRefreshToken = rsp.body()
+
+        then:
+        bearerAccessRefreshToken.username == 'sherlock'
+        bearerAccessRefreshToken.accessToken
+
+        and: 'the access token is a signed JWT'
+        JWTParser.parse(bearerAccessRefreshToken.accessToken) instanceof SignedJWT
+
+        when: 'passing the access token as in the Authorization HTTP Header with the prefix Bearer allows the user to access a secured endpoint'
+        String accessToken = bearerAccessRefreshToken.accessToken
+        HttpRequest requestWithAuthorization = HttpRequest.GET('/' )
+                .accept(MediaType.TEXT_PLAIN)
+                .bearerAuth(accessToken) // <6>
         HttpResponse<String> response = client.toBlocking().exchange(requestWithAuthorization, String)
 
         then:
         response.status == HttpStatus.OK
-        response.body() == 'sherlock' // <8>
+        response.body() == 'sherlock' // <7>
     }
 }

@@ -18,6 +18,4 @@ include::{sourceDir}/src/test/groovy/example/micronaut/DeclarativeHttpClientWith
 
 <1> Inject `AppClient` bean from application context.
 <2> To login, do a POST request to `/login` with your credentials as a JSON payload in the body of the request.
-<3> Micronaut makes it easy to parse JSON into Java objects.
-<4> Supply the JWT to the HTTP `Authorization` header value to the `@Client` method.
-<5> Use .body() to retrieve the parsed payload.
+<3> Supply the JWT to the HTTP `Authorization` header value to the `@Client` method.
