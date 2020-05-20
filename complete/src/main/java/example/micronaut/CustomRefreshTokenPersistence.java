@@ -29,7 +29,8 @@ public class CustomRefreshTokenPersistence implements RefreshTokenPersistence {
                 event.getRefreshToken() != null &&
                 event.getUserDetails() != null &&
                 event.getUserDetails().getUsername() != null) {
-            refreshTokenRepository.save(event.getUserDetails() .getUsername(), event.getRefreshToken(), Boolean.FALSE); // <4>
+            String payload = event.getRefreshToken();
+            refreshTokenRepository.save(event.getUserDetails() .getUsername(), payload, Boolean.FALSE); // <4>
         }
     }
 

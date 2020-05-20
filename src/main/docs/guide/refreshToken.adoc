@@ -8,8 +8,7 @@ First, add the following configuration:
 include::{sourceDir}/src/main/resources/application.yml[tag=refresh]
 ----
 
-<1> Enable authentication responses (e.g. login response) to include a refresh token.
-<2> To generate a refresh token you app must provide a bean of type https://micronaut-projects.github.io/micronaut-security/snapshot/api/io/micronaut/security/token/generator/RefreshTokenGenerator.html[RefreshTokenGenerator]. Micronaut Security ships with  https://micronaut-projects.github.io/micronaut-security/snapshot/api/io/micronaut/security/token/jwt/generator/SignedRefreshTokenGenerator.html[SignedRefreshTokenGenerator] which signs a UUID with a configured secret.
+<1> To generate a refresh token you app must provide a bean of type https://micronaut-projects.github.io/micronaut-security/snapshot/api/io/micronaut/security/token/generator/RefreshTokenGenerator.html[RefreshTokenGenerator]. Micronaut Security ships with  https://micronaut-projects.github.io/micronaut-security/snapshot/api/io/micronaut/security/token/jwt/generator/SignedRefreshTokenGenerator.html[SignedRefreshTokenGenerator] which signs a UUID with a configured secret.
 
 Create a test to verify the login endpoint responds both access and refresh token:
 
@@ -20,5 +19,3 @@ include::{sourceDir}/src/test/groovy/example/micronaut/LoginIncludesRefreshToken
 ----
 
 <1> A refresh token is returned.
-<2> The refresh token is not a JWT
-

@@ -1,9 +1,7 @@
 #tag::security[]
 micronaut:
   security:
-    endpoints:
-      login:
-        enabled: true # <1>
+    login-handler: bearer  # <1>
     token:
       jwt:
         signatures:
@@ -11,14 +9,6 @@ micronaut:
             generator: # <2>
               secret: pleaseChangeThisSecretForANewOne # <3>
 #end::security[]
-#tag::oauth[]
----
-micronaut:
-  security:
-    endpoints:
-      oauth:
-        enabled: true # <1>
-#end::oauth[]
 #tag::refresh[]
 ---
 micronaut:
@@ -27,8 +17,7 @@ micronaut:
       jwt:
         generator:
           refresh-token:
-            enabled: true # <1>
-            secret: pleaseChangeThisSecretForANewOne # <2>
+            secret: pleaseChangeThisSecretForANewOne # <1>
 #end::refresh[]
 #tag::datasources[]
 ---

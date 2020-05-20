@@ -31,12 +31,5 @@ class LoginIncludesRefreshTokenSpec extends Specification {
 
         and: 'access token is a JWT'
         JWTParser.parse(rsp.accessToken) instanceof SignedJWT
-
-
-        when: 'refresh token is not a JWT'
-        JWTParser.parse(rsp.refreshToken) // <2>
-
-        then:
-        thrown(ParseException)
     }
 }

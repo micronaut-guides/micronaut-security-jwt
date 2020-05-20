@@ -1,16 +1,6 @@
 To enable the https://micronaut-projects.github.io/micronaut-security/snapshot/guide/index.html#refresh[Refresh Controller], you have to enable it via configuration and provide an implementation of https://micronaut-projects.github.io/micronaut-security/snapshot/api/io/micronaut/security/token/refresh/RefreshTokenPersistence.html[RefreshTokenPersistence]
 
-Enable the refresh controller:
-
-[source,yaml]
-.src/main/resources/application.yml
-----
-include::{sourceDir}/src/main/resources/application.yml[tag=oauth]
-----
-
-<1> Expose `/oauth/access_token` endpoint as defined by https://tools.ietf.org/html/rfc6749#section-6[section 6 of the OAuth 2.0 spec] - Refreshing an Access Token. You will invoke this endpoint to obtain a new access token.
-
-Create a bean of type https://micronaut-projects.github.io/micronaut-security/snapshot/api/io/micronaut/security/token/refresh/RefreshTokenPersistence.html[RefreshTokenPersistence] which leverages the Micronaut Data repository we coded in the previous section:
+To enable the refresh controller you need to create a bean of type https://micronaut-projects.github.io/micronaut-security/snapshot/api/io/micronaut/security/token/refresh/RefreshTokenPersistence.html[RefreshTokenPersistence] which leverages the Micronaut Data repository we coded in the previous section:
 
 [source,java]
 .src/main/java/example/micronaut/CustomRefreshTokenPersistence.groovy
