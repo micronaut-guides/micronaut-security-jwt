@@ -1,29 +1,30 @@
 package example.micronaut
 
-import io.micronaut.context.ApplicationContext
+
 import io.micronaut.http.HttpRequest
-import io.micronaut.http.client.HttpClient
-import io.micronaut.runtime.server.EmbeddedServer
+import io.micronaut.http.client.RxHttpClient
+import io.micronaut.http.client.annotation.Client
 import io.micronaut.security.authentication.UsernamePasswordCredentials
 import io.micronaut.security.token.jwt.endpoints.TokenRefreshRequest
 import io.micronaut.security.token.jwt.render.AccessRefreshToken
 import io.micronaut.security.token.jwt.render.BearerAccessRefreshToken
-import spock.lang.AutoCleanup
+import io.micronaut.test.annotation.MicronautTest
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.util.concurrent.PollingConditions
 
+import javax.inject.Inject
+
+@MicronautTest(rollback = false) // <1>
 class OauthAccessTokenSpec extends Specification {
 
-    @AutoCleanup
-    @Shared
-    EmbeddedServer embeddedServer = ApplicationContext.run(EmbeddedServer, [:])
+    @Inject
+    @Client("/")
+    RxHttpClient client // <2>
 
     @Shared
-    HttpClient client = embeddedServer.applicationContext.createBean(HttpClient, embeddedServer.URL)
-
-    @Shared
-    RefreshTokenRepository refreshTokenRepository = embeddedServer.applicationContext.getBean(RefreshTokenRepository)
+    @Inject
+    RefreshTokenRepository refreshTokenRepository
 
     def "Verify JWT access token refresh works"() {
         given:
