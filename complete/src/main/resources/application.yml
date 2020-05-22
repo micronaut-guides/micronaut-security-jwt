@@ -1,7 +1,7 @@
 #tag::security[]
 micronaut:
   security:
-    login-handler: bearer  # <1>
+    authentication: bearer  # <1>
     token:
       jwt:
         signatures:
