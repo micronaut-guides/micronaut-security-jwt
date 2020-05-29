@@ -5,7 +5,7 @@ Create the a new `application.yml` configuration file:
 ----
 include::{sourceDir}/src/main/resources/application.yml[tag=security]
 ----
-<1> Expose `/login` endpoint.
+<1> Set `authentication` to `bearer` to receive a JSON response from the login endpoint.
 <2> You can create a http://docs.micronaut.io/latest/api/io/micronaut/security/token/jwt/signature/secret/SecretSignatureConfiguration.html[SecretSignatureConfiguration] named `generator` via configuration as illustrated above. The `generator` signature is used to sign the issued JWT claims.
 <3> Change this by your own secret and keep it safe (do not store this in your VCS).
 

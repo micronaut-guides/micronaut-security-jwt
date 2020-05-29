@@ -3,9 +3,9 @@ If you want to access a secured endpoint, you can also use Micronaut's HTTP Clie
 First create a `@Client` with a method `home` which accepts an `Authorization` HTTP Header.
 
 [source,java]
-.src/test/java/example/micronaut/AppClient.java
+.src/test/groovy/example/micronaut/AppClient.groovy
 ----
-include::{sourceDir}/src/test/java/example/micronaut/AppClient.java[]
+include::{sourceDir}/src/test/groovy/example/micronaut/AppClient.groovy[]
 ----
 
 Create a test which uses the previous `@Client`

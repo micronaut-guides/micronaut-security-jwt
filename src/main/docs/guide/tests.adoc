@@ -1,5 +1,3 @@
-include::{commondir}/common-spockinjavaapp.adoc[]
-
 Create a test to verify a user is able to login and access a secured endpoint.
 
 [source,groovy]
