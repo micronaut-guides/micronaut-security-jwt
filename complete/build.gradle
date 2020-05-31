@@ -19,15 +19,6 @@ configurations {
     developmentOnly
 }
 
-configurations.all {
-    resolutionStrategy {
-        force 'io.micronaut:micronaut-security-annotations:2.0.0.BUILD-SNAPSHOT'
-        force 'io.micronaut:micronaut-security:2.0.0.BUILD-SNAPSHOT'
-        force 'io.micronaut:micronaut-security-jwt:2.0.0.BUILD-SNAPSHOT'
-        force 'io.micronaut:micronaut-jdbc:2.2.3'
-    }
-}
-
 dependencies {
     annotationProcessor(enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion"))
     annotationProcessor("io.micronaut:micronaut-inject-java")
@@ -48,8 +39,8 @@ dependencies {
     implementation("io.micronaut:micronaut-http-client")
 
     //tag::securitydependency[]
-    annotationProcessor "io.micronaut:micronaut-security-annotations:2.0.0.BUILD-SNAPSHOT"
-    implementation "io.micronaut:micronaut-security-jwt:2.0.0.BUILD-SNAPSHOT"
+    annotationProcessor "io.micronaut:micronaut-security-annotations"
+    implementation "io.micronaut:micronaut-security-jwt"
     //end::securitydependency[]
 
     //tag::micronautdata[]
