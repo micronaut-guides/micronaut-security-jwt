@@ -1,1 +1,6 @@
 include::{commondir}/common-runapp.adoc[]
+
+To test the running application, issue a GET request to localhost:8080 with a basic authentication header in place.  One way to do this is with the popular curl command:
+----
+curl -v -u sherlock:password localhost:8080
+----

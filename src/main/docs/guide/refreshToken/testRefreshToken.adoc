@@ -19,7 +19,7 @@ include::{sourceDir}/src/test/groovy/example/micronaut/UnsignedRefreshTokenSpec.
 
 ## Test Refresh Token Not Found
 
-Create a test which verifies a that sending a valid refresh token but which was not persisted returns HTTP Status 400.
+Create a test which verifies that sending a valid, yet not persisted, refresh token returns HTTP Status 400.
 
 [source,groovy]
 .src/test/groovy/example/micronaut/RefreshTokenNotFoundSpec.groovy
@@ -32,7 +32,7 @@ include::{sourceDir}/src/test/groovy/example/micronaut/RefreshTokenNotFoundSpec.
 
 ## Test Refresh Token Revocation
 
-Generate a valid refresh token, save it but flag it as revoked. Expect a 400.
+Generate a valid refresh token, save it, but flag it as revoked. Expect a 400.
 
 [source,groovy]
 .src/test/groovy/example/micronaut/RefreshTokenRevokedSpec.groovy
