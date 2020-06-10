@@ -39,8 +39,8 @@ dependencies {
     implementation("io.micronaut:micronaut-http-client")
 
     //tag::securitydependency[]
-    annotationProcessor "io.micronaut.security:micronaut-security-annotations:2.0.0.BUILD-SNAPSHOT"
-    implementation "io.micronaut.security:micronaut-security-jwt:2.0.0.BUILD-SNAPSHOT"
+    annotationProcessor "io.micronaut.security:micronaut-security-annotations"
+    implementation "io.micronaut.security:micronaut-security-jwt"
     //end::securitydependency[]
 
     //tag::micronautdata[]
