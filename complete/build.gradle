@@ -56,7 +56,7 @@ dependencies {
     annotationProcessor("io.micronaut.data:micronaut-data-processor") // <1>
     implementation("io.micronaut.data:micronaut-data-jdbc") // <2>
     runtime("com.h2database:h2") // <3>
-    runtime("io.micronaut.configuration:micronaut-jdbc-hikari") // <4>
+    runtime("io.micronaut.sql:micronaut-jdbc-hikari") // <4>
     //end::micronautdata[]
 
     runtimeOnly("ch.qos.logback:logback-classic:1.2.3")
