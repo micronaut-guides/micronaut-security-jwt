@@ -10,7 +10,6 @@ import io.micronaut.security.token.jwt.render.BearerAccessRefreshToken
 import io.micronaut.test.annotation.MicronautTest
 import spock.lang.Specification
 import javax.inject.Inject
-import java.text.ParseException
 
 @MicronautTest
 class LoginIncludesRefreshTokenSpec extends Specification {

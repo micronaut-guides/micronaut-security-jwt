@@ -4,7 +4,6 @@ import io.micronaut.context.ApplicationContext
 import io.micronaut.core.type.Argument
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpStatus
-import io.micronaut.http.client.BlockingHttpClient
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.runtime.server.EmbeddedServer

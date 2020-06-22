@@ -1,12 +1,12 @@
 package example.micronaut;
 
-import io.micronaut.core.async.publisher.Publishers;
 import io.micronaut.runtime.event.annotation.EventListener;
 import io.micronaut.security.authentication.UserDetails;
 import io.micronaut.security.token.event.RefreshTokenGeneratedEvent;
 import io.micronaut.security.token.refresh.RefreshTokenPersistence;
 import io.micronaut.security.errors.OauthErrorResponseException;
 import io.micronaut.security.errors.IssuingAnAccessTokenErrorCode;
+import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import org.reactivestreams.Publisher;
 
@@ -36,14 +36,20 @@ public class CustomRefreshTokenPersistence implements RefreshTokenPersistence {
 
     @Override
     public Publisher<UserDetails> getUserDetails(String refreshToken) {
-        Optional<RefreshTokenEntity> tokenOpt = refreshTokenRepository.findByRefreshToken(refreshToken);
-        if (tokenOpt.isPresent()) {
-            RefreshTokenEntity token = tokenOpt.get();
-            if (token.getRevoked()) {
-                return Publishers.just(new OauthErrorResponseException(IssuingAnAccessTokenErrorCode.INVALID_GRANT, "refresh token revoked", null)); // <5>
+        return Flowable.create(emitter -> {
+            Optional<RefreshTokenEntity> tokenOpt = refreshTokenRepository.findByRefreshToken(refreshToken);
+            if (tokenOpt.isPresent()) {
+                RefreshTokenEntity token = tokenOpt.get();
+                if (token.getRevoked()) {
+                    emitter.onError(new OauthErrorResponseException(IssuingAnAccessTokenErrorCode.INVALID_GRANT, "refresh token revoked", null)); // <5>
+                } else {
+                    emitter.onNext(new UserDetails(token.getUsername(), new ArrayList<>())); // <6>
+                    emitter.onComplete();
+                }
+            } else {
+                emitter.onError(new OauthErrorResponseException(IssuingAnAccessTokenErrorCode.INVALID_GRANT, "refresh token not found", null)); // <7>
             }
-             return Flowable.just(new UserDetails(token.getUsername(), new ArrayList<>())); // <6>
-        }
-        return Publishers.just(new OauthErrorResponseException(IssuingAnAccessTokenErrorCode.INVALID_GRANT, "refresh token not found", null)); // <7>
+        }, BackpressureStrategy.ERROR);
+
     }
 }

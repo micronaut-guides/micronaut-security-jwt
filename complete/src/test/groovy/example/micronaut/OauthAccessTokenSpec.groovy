@@ -1,6 +1,5 @@
 package example.micronaut
 
-
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.client.RxHttpClient
 import io.micronaut.http.client.annotation.Client

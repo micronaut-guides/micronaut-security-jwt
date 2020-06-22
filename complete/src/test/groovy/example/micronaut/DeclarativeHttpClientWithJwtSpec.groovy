@@ -2,10 +2,6 @@ package example.micronaut
 
 import com.nimbusds.jwt.JWTParser
 import com.nimbusds.jwt.SignedJWT
-import io.micronaut.http.HttpRequest
-import io.micronaut.http.HttpResponse
-import io.micronaut.http.HttpStatus
-import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.security.authentication.UsernamePasswordCredentials
 import io.micronaut.security.token.jwt.render.BearerAccessRefreshToken
 import io.micronaut.test.annotation.MicronautTest
