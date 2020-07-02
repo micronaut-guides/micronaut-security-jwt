@@ -11,7 +11,7 @@ other build tools such as `Maven` or other programming languages such as `Groovy
 
 == Create an App with Micronaut Launch
 
-You can create the app using https://micronaut.com/launch[Micronaut Launch]
+You can create the app using https://micronaut.io/launch[Micronaut Launch]
 
 image::micronautlaunch.png[]
 
