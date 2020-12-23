@@ -2,7 +2,6 @@ package example.micronaut;
 
 import edu.umd.cs.findbugs.annotations.Nullable;
 import io.micronaut.http.HttpRequest;
-import io.micronaut.security.authentication.AuthenticationException;
 import io.micronaut.security.authentication.AuthenticationFailed;
 import io.micronaut.security.authentication.AuthenticationProvider;
 import io.micronaut.security.authentication.AuthenticationRequest;
@@ -24,10 +23,10 @@ public class AuthenticationProviderUserPassword implements AuthenticationProvide
             if (authenticationRequest.getIdentity().equals("sherlock") &&
                     authenticationRequest.getSecret().equals("password")) {
                 emitter.onNext(new UserDetails((String) authenticationRequest.getIdentity(), new ArrayList<>()));
-                emitter.onComplete();
             } else {
-                emitter.onError(new AuthenticationException(new AuthenticationFailed()));
+                emitter.onNext(new AuthenticationFailed("Invalid username or password"));
             }
+            emitter.onComplete();
         }, BackpressureStrategy.ERROR);
     }
 }
