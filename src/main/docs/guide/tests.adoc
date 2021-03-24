@@ -6,7 +6,7 @@ Create a test to verify a user is able to login and access a secured endpoint.
 include::{sourceDir}/src/test/groovy/example/micronaut/JwtAuthenticationSpec.groovy[]
 ----
 
-<1> Annotate the class with `@MicronautTest` to let Micronaut starts the embedded server and inject the beans. More info: https://micronaut-projects.github.io/micronaut-test/latest/guide/index.html[https://micronaut-projects.github.io/micronaut-test/latest/guide/index.html].
+<1> Annotate the class with `@MicronautTest` to let Micronaut start the embedded server and inject the beans. More info: https://micronaut-projects.github.io/micronaut-test/latest/guide/index.html[https://micronaut-projects.github.io/micronaut-test/latest/guide/index.html].
 <2> Inject the `HttpClient` bean in the application context.
 <3> When you include the security dependencies, security is considered enabled and every endpoint is secured by default.
 <4> To login, do a POST request to `/login` with your credentials as a JSON payload in the body of the request.
